@@ -1,0 +1,1254 @@
+<!-- #portfolio -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plexdi Studio — Web Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #242424;
+    --text: #f0ede8;
+    --muted: #6b6762;
+    --accent: #e8d5a3;
+    --accent2: #c9a96e;
+    --accent3: #f5f0e8;
+    --red: #e05c4b;
+    --green: #5cb88a;
+    --blue: #5b8de8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    opacity: 0.6;
+  }
+  .cursor.hovered { width: 18px; height: 18px; }
+  .cursor-ring.hovered { width: 52px; height: 52px; opacity: 0.3; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 10px 22px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent3); transform: translateY(-1px); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,213,163,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,213,163,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+  }
+  .hero-orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #e8d5a3, transparent);
+    top: -100px; right: -100px;
+    animation: drift1 12s ease-in-out infinite;
+  }
+  .hero-orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #5b8de8, transparent);
+    bottom: 100px; left: 200px;
+    animation: drift2 15s ease-in-out infinite;
+  }
+
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-40px, 40px); }
+  }
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  .hero-eyebrow {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  .hero-title {
+    position: relative;
+    z-index: 1;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+
+  .hero-title .line-accent { color: var(--accent); display: block; }
+  .hero-title .line-outline {
+    -webkit-text-stroke: 1.5px var(--border);
+    color: transparent;
+    display: block;
+  }
+
+  .hero-sub {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 380px;
+    line-height: 1.7;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 400; }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+  }
+
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  
+  /* Marquee */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    background: var(--surface);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .marquee-item::after {
+    content: '✦';
+    color: var(--accent2);
+    font-size: 10px;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Section shared */
+  section { padding: 120px 48px; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* Work section */
+  .work-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    gap: 40px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+  }
+
+  .work-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .work-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent2);
+  }
+
+  .work-card:nth-child(1) { grid-column: span 7; }
+  .work-card:nth-child(2) { grid-column: span 5; }
+  .work-card:nth-child(3) { grid-column: span 12; }
+
+  .work-card-preview {
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .work-card:nth-child(3) .work-card-preview { height: 260px; }
+
+  .work-preview-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Card 1: Nail salon - feminine, warm */
+  .preview-nails {
+    background: linear-gradient(135deg, #1a0f14 0%, #2d1520 50%, #1a0a14 100%);
+  }
+  .preview-nails::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 30% 40%, rgba(220,130,150,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 70% 60%, rgba(180,100,120,0.15) 0%, transparent 60%);
+  }
+  .preview-nails-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #f5dde4;
+  }
+  .preview-nails-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .preview-nails-site {
+    font-size: 11px;
+    opacity: 0.5;
+    margin-top: 6px;
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: #dbb8c0;
+  }
+
+  /* Card 2: Studio */
+  .preview-studio {
+    background: linear-gradient(135deg, #0d0d14 0%, #131825 50%, #0d1020 100%);
+  }
+  .preview-studio::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 50% at 60% 50%, rgba(91,141,232,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 20% 20%, rgba(232,213,163,0.1) 0%, transparent 60%);
+  }
+  .preview-studio-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .preview-studio-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #e8d5a3;
+    letter-spacing: -0.04em;
+    margin-bottom: 6px;
+  }
+  .preview-studio-sub {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: rgba(91,141,232,0.8);
+    font-weight: 500;
+  }
+  .preview-studio-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(91,141,232,0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Card 3: Artist portfolio */
+  .preview-artist {
+    background: linear-gradient(135deg, #0f0d12 0%, #1a1520 50%, #120f18 100%);
+  }
+  .preview-artist::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 40% 60% at 20% 50%, rgba(201,169,110,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 50%, rgba(145,90,180,0.15) 0%, transparent 60%);
+  }
+  .preview-artist-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .preview-artist-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .preview-artist-tag {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(145,90,180,0.9);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .preview-artist-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .preview-artist-pill {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 100px;
+    color: rgba(240,237,232,0.5);
+    font-family: 'DM Sans', sans-serif;
+    text-transform: none;
+    font-weight: 400;
+  }
+
+  .work-card-body {
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .work-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .work-card-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+
+  .work-card-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .work-card-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .work-card-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .work-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .work-card-url {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .work-card-url:hover { color: var(--accent); }
+
+  .work-card-arrow {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .work-card-arrow:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    transform: rotate(45deg);
+  }
+
+  /* Services */
+  #services {
+    background: var(--surface);
+  }
+
+  .services-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .service-item {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: padding 0.3s;
+  }
+  .service-item:hover { padding-left: 8px; }
+  .service-item:first-child { border-top: 1px solid var(--border); }
+
+  .service-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .service-item-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    width: 24px;
+  }
+
+  .service-item-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .service-item-arrow {
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform 0.3s, color 0.2s;
+  }
+  .service-item:hover .service-item-arrow {
+    transform: translateX(6px);
+    color: var(--accent);
+  }
+
+  .services-visual {
+    position: sticky;
+    top: 120px;
+  }
+
+  .services-card-big {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .services-card-icon {
+    font-size: 56px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .services-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .services-card-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+
+  .services-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .services-tag {
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* Process */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 72px;
+  }
+
+  .process-step {
+    background: var(--surface);
+    padding: 40px 32px;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .process-step:hover { background: var(--surface2); }
+
+  .process-step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -0.04em;
+  }
+
+  .process-step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .process-step-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* CTA */
+  #contact {
+    text-align: center;
+    padding: 160px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(232,213,163,0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .cta-label { margin-bottom: 32px; justify-content: center; }
+  .cta-label::before { display: none; }
+
+  .cta-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 6vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .cta-title span { color: var(--accent); }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 18px 40px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    cursor: none;
+  }
+  .btn-primary:hover { background: var(--accent3); transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 18px 40px;
+    background: transparent;
+    color: var(--text);
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: none;
+  }
+  .btn-secondary:hover { border-color: var(--muted); transform: translateY(-2px); }
+
+  /* Footer */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    section { padding: 80px 24px; }
+    .work-card:nth-child(1),
+    .work-card:nth-child(2),
+    .work-card:nth-child(3) { grid-column: span 12; }
+    .services-layout { grid-template-columns: 1fr; gap: 48px; }
+    .services-visual { position: static; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 24px; }
+    .hero-sub { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Plexdi Studio</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+
+  <div class="hero-eyebrow reveal">Web Design & Development</div>
+
+  <h1 class="hero-title reveal reveal-delay-1">
+    <span>Websites that</span>
+    <span class="line-accent">actually work</span>
+    <span class="line-outline">for you.</span>
+  </h1>
+
+  <div class="hero-sub reveal reveal-delay-2">
+    <p class="hero-desc">
+      I build <strong>clean, fast, purposeful websites</strong> for small businesses, creatives, and brands who need a digital presence that converts.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">3+</div>
+        <div class="hero-stat-label">Sites Shipped</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Custom Built</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Revisions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Web Design</span>
+    <span class="marquee-item">Next.js</span>
+    <span class="marquee-item">Landing Pages</span>
+    <span class="marquee-item">Portfolio Sites</span>
+    <span class="marquee-item">Business Websites</span>
+    <span class="marquee-item">SEO Optimised</span>
+    <span class="marquee-item">Mobile First</span>
+    <span class="marquee-item">Custom Design</span>
+    <span class="marquee-item">Web Design</span>
+    <span class="marquee-item">Next.js</span>
+    <span class="marquee-item">Landing Pages</span>
+    <span class="marquee-item">Portfolio Sites</span>
+    <span class="marquee-item">Business Websites</span>
+    <span class="marquee-item">SEO Optimised</span>
+    <span class="marquee-item">Mobile First</span>
+    <span class="marquee-item">Custom Design</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-label reveal">Selected Projects</div>
+      <h2 class="section-title reveal reveal-delay-1">Real sites,<br/>real results.</h2>
+    </div>
+    <p class="section-desc reveal reveal-delay-2">Every project is built from scratch — no templates, no shortcuts. Just thoughtful design and clean code.</p>
+  </div>
+
+  <div class="work-grid">
+
+    <!-- Card 1: Nail Salon -->
+    <div class="work-card reveal">
+      <div class="work-card-preview">
+        <div class="work-preview-inner preview-nails">
+          <div class="preview-nails-content">
+            <span class="preview-nails-icon">💅</span>
+            <div>New York Nails</div>
+            <div class="preview-nails-site">new-york-nails.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-top">
+          <span class="work-card-num">01</span>
+          <span class="work-card-tag">Beauty & Wellness</span>
+        </div>
+        <div class="work-card-name">New York Nails</div>
+        <div class="work-card-desc">A warm, elegant site for a nail salon — designed to build trust with local customers and drive bookings.</div>
+        <div class="work-card-footer">
+          <a href="https://new-york-nails.com" target="_blank" class="work-card-url">new-york-nails.com ↗</a>
+          <a href="https://new-york-nails.com" target="_blank" class="work-card-arrow">↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Studio -->
+    <div class="work-card reveal reveal-delay-1">
+      <div class="work-card-preview">
+        <div class="work-preview-inner preview-studio">
+          <div class="preview-studio-dots"></div>
+          <div class="preview-studio-content">
+            <div class="preview-studio-logo">Plexdi</div>
+            <div class="preview-studio-sub">Studio · Creative Agency</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-top">
+          <span class="work-card-num">02</span>
+          <span class="work-card-tag">Business</span>
+        </div>
+        <div class="work-card-name">Plexdi Studio</div>
+        <div class="work-card-desc">A sleek business site for a creative studio — communicating credibility and services at a glance.</div>
+        <div class="work-card-footer">
+          <a href="https://plexdistudio.com" target="_blank" class="work-card-url">plexdistudio.com ↗</a>
+          <a href="https://plexdistudio.com" target="_blank" class="work-card-arrow">↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Artist Portfolio -->
+    <div class="work-card reveal reveal-delay-2">
+      <div class="work-card-preview">
+        <div class="work-preview-inner preview-artist">
+          <div class="preview-artist-content">
+            <div class="preview-artist-name">Miana</div>
+            <div class="preview-artist-tag">Digital Illustrator & Animator</div>
+            <div class="preview-artist-tags">
+              <span class="preview-artist-pill">Character Design</span>
+              <span class="preview-artist-pill">Fan Art</span>
+              <span class="preview-artist-pill">Moodboards</span>
+              <span class="preview-artist-pill">Commissions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-top">
+          <span class="work-card-num">03</span>
+          <span class="work-card-tag">Portfolio</span>
+        </div>
+        <div class="work-card-name">Miana — Artist Portfolio</div>
+        <div class="work-card-desc">A cosy, expressive portfolio for a digital illustrator. Gallery filtering, commission form, and a vibe that matches the artist's style.</div>
+        <div class="work-card-footer">
+          <a href="https://frontend-amber-iota-12.vercel.app" target="_blank" class="work-card-url">View Live Site ↗</a>
+          <a href="https://frontend-amber-iota-12.vercel.app" target="_blank" class="work-card-arrow">↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-layout">
+    <div>
+      <div class="section-label reveal">What I Offer</div>
+      <h2 class="section-title reveal reveal-delay-1">Services</h2>
+      <p class="section-desc reveal reveal-delay-2">From a simple landing page to a full custom build — I've got you covered.</p>
+
+      <div class="services-list">
+        <div class="service-item reveal">
+          <div class="service-item-left">
+            <span class="service-item-num">01</span>
+            <span class="service-item-name">Landing Pages</span>
+          </div>
+          <span class="service-item-arrow">→</span>
+        </div>
+        <div class="service-item reveal reveal-delay-1">
+          <div class="service-item-left">
+            <span class="service-item-num">02</span>
+            <span class="service-item-name">Business Websites</span>
+          </div>
+          <span class="service-item-arrow">→</span>
+        </div>
+        <div class="service-item reveal reveal-delay-2">
+          <div class="service-item-left">
+            <span class="service-item-num">03</span>
+            <span class="service-item-name">Portfolio Sites</span>
+          </div>
+          <span class="service-item-arrow">→</span>
+        </div>
+        <div class="service-item reveal reveal-delay-3">
+          <div class="service-item-left">
+            <span class="service-item-num">04</span>
+            <span class="service-item-name">E-Commerce Stores</span>
+          </div>
+          <span class="service-item-arrow">→</span>
+        </div>
+        <div class="service-item reveal reveal-delay-4">
+          <div class="service-item-left">
+            <span class="service-item-num">05</span>
+            <span class="service-item-name">Website Redesigns</span>
+          </div>
+          <span class="service-item-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-visual reveal reveal-delay-2">
+      <div class="services-card-big">
+        <div>
+          <span class="services-card-icon">⚡</span>
+          <div class="services-card-title">Fast, modern websites — built to last.</div>
+          <div class="services-card-body">
+            Whether you need a site for your business, a portfolio to show off your work, or a landing page to launch something new — I build it with care, attention to detail, and code that won't break in 6 months.
+            <br/><br/>
+            Every site is responsive, performance-optimised, and designed with your audience in mind.
+          </div>
+        </div>
+        <div class="services-tags">
+          <span class="services-tag">Next.js</span>
+          <span class="services-tag">React</span>
+          <span class="services-tag">HTML/CSS</span>
+          <span class="services-tag">Figma</span>
+          <span class="services-tag">Vercel</span>
+          <span class="services-tag">Responsive</span>
+          <span class="services-tag">SEO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal reveal-delay-1">My process</h2>
+
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="process-step-num">01</div>
+      <div class="process-step-title">Discovery</div>
+      <div class="process-step-desc">We talk through your goals, audience, and what you need from the site. No jargon, just a real conversation.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="process-step-num">02</div>
+      <div class="process-step-title">Design</div>
+      <div class="process-step-desc">I sketch and wireframe a direction, then build out a visual design that fits your brand and feels right.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="process-step-num">03</div>
+      <div class="process-step-title">Build</div>
+      <div class="process-step-desc">Clean code, fast load times, and mobile-first. Every site is hand-built — no drag-and-drop builders.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="process-step-num">04</div>
+      <div class="process-step-title">Launch</div>
+      <div class="process-step-desc">We review, refine, and ship. You get the domain, hosting sorted, and I'm on hand for any tweaks after launch.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="section-label cta-label reveal">Let's Work Together</div>
+  <h2 class="cta-title reveal reveal-delay-1">Ready to build<br/><span>something great?</span></h2>
+  <div class="cta-buttons reveal reveal-delay-2">
+    <a href="mailto:hello@plexdistudio.com" class="btn-primary">Get in Touch</a>
+    <a href="https://plexdistudio.com" target="_blank" class="btn-secondary">Visit Plexdi Studio ↗</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Plexdi Studio</div>
+  <div class="footer-copy">© 2025 Plexdi Studio. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .service-item, .work-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hovered'); ring.classList.add('hovered'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hovered'); ring.classList.remove('hovered'); });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Trigger hero reveals on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 300);
+    });
+  });
+</script>
+</body>
+</html>
